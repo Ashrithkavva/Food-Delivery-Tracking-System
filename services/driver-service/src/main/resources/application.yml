@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: driver-service
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://postgres:5432/fdt_drivers}
+    username: ${POSTGRES_USER:fdt}
+    password: ${POSTGRES_PASSWORD:fdt}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+  kafka:
+    bootstrap-servers: ${KAFKA_BROKERS:kafka:9092}
+    consumer:
+      group-id: driver-service
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      ack-mode: manual
+
+server:
+  port: 8080
+  shutdown: graceful
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+fdt:
+  tracking:
+    base-url: ${TRACKING_BASE_URL:http://tracking-service:8080}
+  topics:
+    orders-events: orders.events
