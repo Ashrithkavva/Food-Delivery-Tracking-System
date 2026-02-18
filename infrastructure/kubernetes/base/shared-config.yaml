@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fdt-shared
+  namespace: fdt
+data:
+  KAFKA_BROKERS: "kafka:9092"
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"
+---
+# This is a placeholder. In production, manage secrets via AWS Secrets Manager
+# (External Secrets Operator) or sealed-secrets — never check the real one in.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fdt-postgres
+  namespace: fdt
+type: Opaque
+stringData:
+  POSTGRES_USER: fdt
+  POSTGRES_PASSWORD: change-me-in-prod

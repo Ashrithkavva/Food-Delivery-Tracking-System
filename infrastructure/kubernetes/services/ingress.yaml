@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fdt-ingress
+  namespace: fdt
+  annotations:
+    # ALB Ingress controller annotations for AWS EKS.
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    alb.ingress.kubernetes.io/healthcheck-path: /actuator/health
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /api/v1/orders
+            pathType: Prefix
+            backend:
+              service:
+                name: order-service
+                port: { number: 8080 }
+          - path: /api/v1/drivers
+            pathType: Prefix
+            backend:
+              service:
+                name: driver-service
+                port: { number: 8080 }
+          - path: /api/v1/locations
+            pathType: Prefix
+            backend:
+              service:
+                name: tracking-service
+                port: { number: 8080 }
+          - path: /ws
+            pathType: Prefix
+            backend:
+              service:
+                name: notification-service
+                port: { number: 8080 }
