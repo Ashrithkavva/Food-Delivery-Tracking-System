@@ -1,0 +1,15 @@
+{
+  "customerId": "5a7b1c0e-3a1d-4e8a-9b2c-7e5d8f9a0b1c",
+  "restaurantId": "12345678-1234-1234-1234-123456789012",
+  "idempotencyKey": "smoke-test-001",
+  "pickupLat": 33.7490,
+  "pickupLon": -84.3880,
+  "dropoffLat": 33.7711,
+  "dropoffLon": -84.3946,
+  "deliveryCents": 599,
+  "currency": "USD",
+  "items": [
+    { "sku": "BURGER-DBL", "name": "Double Burger", "quantity": 1, "unitCents": 1299, "notes": "no onions" },
+    { "sku": "FRIES-LG",   "name": "Large Fries",   "quantity": 1, "unitCents": 499,  "notes": null }
+  ]
+}
